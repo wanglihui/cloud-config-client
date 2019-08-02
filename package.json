@@ -1,0 +1,41 @@
+{
+  "name": "cloud-conf",
+  "version": "0.0.2",
+  "description": "node micservice config resolver client",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "cd test && npx mocha && cd .."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com/wanglihui/cloud-config-client"
+  },
+  "keywords": [
+    "node",
+    "micservice",
+    "config",
+    "resolver",
+    "client"
+  ],
+  "author": "wanglihui.sjz@gmail.com",
+  "license": "ISC",
+  "files": [
+    "dist",
+    "README.md",
+    "package.json",
+    "!dist/test"
+  ],
+  "dependencies": {
+    "cloud-error": "0.0.1",
+    "js-yaml": "^3.13.1",
+    "lodash": "^4.17.15",
+    "node-yaml": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.6.8",
+    "mocha": "^6.2.0",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3"
+  }
+}

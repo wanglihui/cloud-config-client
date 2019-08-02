@@ -1,0 +1,6 @@
+name: cloud-config-client-test
+env: public
+port: 8888
+allow-no-auth:
+  - https://www.baidu.com
+  - https://www.google.com
