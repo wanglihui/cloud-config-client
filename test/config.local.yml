@@ -2,3 +2,4 @@ name: test
 port: ${PORT:9090}
 allow-no-auth:
   - https://www.baidu.com
+host: ${HOST:"https://www.baidu.com" }

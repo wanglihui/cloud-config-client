@@ -1,3 +1,4 @@
+import _ from 'lodash';
 const pwd = process.cwd();
 const yaml = require("node-yaml");
 import * as path from 'path';
@@ -16,7 +17,9 @@ export class Config {
             const localConfig = await yaml.read(path.resolve(pwd, 'config.local.yml'));
             obj = Object.assign(obj, localConfig);
         } catch(err) {
+            console.debug(err);
         }
+        obj = replaceEnv(obj);
         for(let key in obj) {
             this[key] = obj[key];
         }
@@ -25,6 +28,40 @@ export class Config {
         }
         return this;
     }
+}
+
+const reg = /\$\{([^}^{]+)\}/;
+function replaceEnv(obj: any) {
+    return _.transform(obj, function(result: any, value: any, index: string) {
+        if (typeof value == 'string') {
+            let groups = reg.exec(value);
+            if (groups && groups.length) {
+                let val = groups[1];
+                let idx = val.indexOf(":");
+                let envName = val.substr(0, idx);
+                let defaultVal = val.substr(idx+1);
+                defaultVal = defaultVal.replace(/^(\"|\')/, '');
+                defaultVal = defaultVal.replace(/[\"\']\s*$/, '');
+                //替换环境变量
+                let envVal = process.env[envName];
+                if (!envVal) {
+                    envVal = defaultVal;
+                }
+                value = value.replace(reg, envVal);
+            }
+        }
+        if (value instanceof RegExp) {
+            value = value.toString();
+        }
+        if (value instanceof Date) {
+            value = value.toISOString();
+        }
+        if (typeof value == 'object') {
+            value = replaceEnv(value);
+        }
+        result[index] = value;
+        return result;
+    })
 }
 
 const C = new Config();

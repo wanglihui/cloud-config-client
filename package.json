@@ -1,9 +1,10 @@
 {
   "name": "cloud-conf",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "node micservice config resolver client",
   "main": "dist/index.js",
   "scripts": {
+    "prepublish": "npm test && tsc",
     "test": "cd test && npx mocha && cd .."
   },
   "repository": {
@@ -32,6 +33,7 @@
     "node-yaml": "^4.0.1"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.136",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.6.8",
     "mocha": "^6.2.0",
